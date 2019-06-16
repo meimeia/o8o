@@ -18,7 +18,8 @@
         tag=1
         }">注册</a>
         </div>
-       <div v-if="user.id">
+        <!--v-if="user.id"-->
+       <div >
          <a href="" @click.prevent="()=>goPage('Mine')">杨亮礼遇</a>
        </div>
         <a href="" @click.prevent="" style="margin-left:.3rem;">更多</a>
@@ -273,7 +274,7 @@
     data() {
       return {
         user:{
-          id:"123"
+          id:false
         },
         count: 0,
         data: [],
