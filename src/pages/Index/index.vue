@@ -163,18 +163,18 @@
           <div class="cont1">
             <div class="form">
               <el-form :label-position="'left'"  :rules="rules" label-width="80px" :model="formLabelAlign">
-                <el-form-item label="用户名">
+                <el-form-item label="用户名" prop="name">
                   <el-input v-model="formLabelAlign.name"></el-input>
                 </el-form-item>
-                <el-form-item label="登录密码">
-                  <el-input v-model="formLabelAlign.type"></el-input>
+                <el-form-item label="登录密码" prop="pwd">
+                  <el-input v-model="formLabelAlign.pwd"></el-input>
                 </el-form-item>
               </el-form>
-              <div class="vertify" style="display: flex;justify-content: space-between">
-                <el-input v-model="formLabelAlign.type" placeholder="验证码"></el-input>
-                <el-button type="success">验证码</el-button>
+              <!--<div class="vertify" style="display: flex;justify-content: space-between">-->
+                <!--<el-input v-model="formLabelAlign.type" placeholder="验证码"></el-input>-->
+                <!--<el-button type="success">验证码</el-button>-->
 
-              </div>
+              <!--</div>-->
 
 
             </div>
@@ -273,7 +273,7 @@
     components: {Footer},
     data() {
       var isNull=(rule,val,callback)=>{
-        if(val==""||null||undefined)return callback(new Error("不能为空！") );
+        if(val==""||null||undefined)return callback(new Error("请输入用户名！") );
       }
       var checkTrim=(rule,val,callback)=>{
         isNull(rule,val,callback)
@@ -288,7 +288,7 @@
         }
       }
       var checkPwd = (rule, val, cb) => {
-        isNull(rule,val,cb)
+        if(val==""||null||undefined)return cb(new Error("请输入密码！") );
         checkTrim(rule,val,cb)
       };
       var rePwd=(rule,val,cb)=>{
