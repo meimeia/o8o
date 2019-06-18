@@ -15,14 +15,14 @@
     </div>
 
 <div class="user">
-  <a href="" @click.prevent="">首页</a>
+  <a href="" @click.prevent="goPage('Index')">首页</a>
   <a href="" @click.prevent="">日历</a>
   <a href="" @click.prevent="">消息</a>
   <a href="" @click.prevent="">设置</a>
   <a href="">
     <img src="../../../static/imgs/user.png" alt="">
   </a>
-  <a href="" @click.prevent="">杨亮礼遇</a>
+  <a href="" @click.prevent="goPage('Mine')">杨亮礼遇</a>
 
 </div>
     </div>
@@ -32,7 +32,12 @@
 <script>
   export default {
     name: "Header",
-    props:["title"]
+    props:["title"],
+    methods:{
+      goPage(val){
+        this.$router.push({name:val})
+      }
+    }
   }
 </script>
 

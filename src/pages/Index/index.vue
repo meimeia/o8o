@@ -31,6 +31,7 @@
       :visible.sync="centerDialogVisible"
       width="30%"
       center>
+      <!--扫码登录=============================-->
       <div v-if="tag==0?1:0" slot="title" class="title">
         <img src="../../assets/imgs/logo.png"/>
         <span>扫码登录</span>
@@ -82,7 +83,7 @@
           </div>
         </div>
       </div>
-
+<!--注册========================================================-->
       <div v-if="tag==1?1:0" slot="title" class="title">
         <img src="../../assets/imgs/logo.png"/>
         <span>注册</span>
@@ -153,7 +154,7 @@
           </div>
         </div>
       </div>
-
+<!--登录============================-->
       <div v-if="tag==2?1:0" slot="title" class="title">
         <img src="../../assets/imgs/logo.png"/>
         <span>登录</span>
@@ -298,7 +299,7 @@
         code:"获取短信验证码",
         flag:true,
         user:{
-          id:false
+          id:true
         },
 
         rules:{
