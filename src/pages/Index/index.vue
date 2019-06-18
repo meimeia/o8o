@@ -31,6 +31,7 @@
       :visible.sync="centerDialogVisible"
       width="30%"
       center>
+      <!--扫码登录=============================-->
       <div v-if="tag==0?1:0" slot="title" class="title">
         <img src="../../assets/imgs/logo.png"/>
         <span>扫码登录</span>
@@ -82,7 +83,7 @@
           </div>
         </div>
       </div>
-
+<!--注册========================================================-->
       <div v-if="tag==1?1:0" slot="title" class="title">
         <img src="../../assets/imgs/logo.png"/>
         <span>注册</span>
@@ -91,23 +92,23 @@
         <div class="dialog">
           <div class="cont1">
             <div class="form">
-              <el-form :label-position="'left'" label-width="80px" :model="formLabelAlign">
-                <el-form-item label="用户名">
-                  <el-input v-model="formLabelAlign.name"></el-input>
+              <el-form :label-position="'left'"  :rules="rules" label-width="80px" :model="formLabelAlign">
+                <el-form-item label="用户名" prop="name" >
+                  <el-input clearable v-model="formLabelAlign.name"></el-input>
                 </el-form-item>
-                <el-form-item label="注册类型">
-                  <el-input v-model="formLabelAlign.region" placeholder="手机号码或邮箱地址"></el-input>
+                <el-form-item label="注册类型" prop="region">
+                  <el-input  clearable v-model="formLabelAlign.region" placeholder="手机号码或邮箱地址"></el-input>
                 </el-form-item>
-                <el-form-item label="登录密码">
-                  <el-input v-model="formLabelAlign.type"></el-input>
+                <el-form-item  label="登录密码" prop="pwd">
+                  <el-input clearable type="password" v-model="formLabelAlign.pwd"></el-input>
                 </el-form-item>
-                <el-form-item label="确认密码">
-                  <el-input v-model="formLabelAlign.type"></el-input>
+                <el-form-item  label="确认密码" prop="repwd">
+                  <el-input clearable type="password" v-model="formLabelAlign.repwd"></el-input>
                 </el-form-item>
               </el-form>
               <div class="vertify" style="display: flex;justify-content: space-between">
-                <el-input v-model="formLabelAlign.type" placeholder="验证码"></el-input>
-                <el-button type="success">获取短信验证码</el-button>
+                <el-input clearable v-model="formLabelAlign.type" placeholder="验证码"></el-input>
+                <el-button type="success" :disabled="!flag" @click="getCode">{{!isNaN(code)?code+'秒后重新获取':code}}</el-button>
 
               </div>
 
@@ -153,7 +154,7 @@
           </div>
         </div>
       </div>
-
+<!--登录============================-->
       <div v-if="tag==2?1:0" slot="title" class="title">
         <img src="../../assets/imgs/logo.png"/>
         <span>登录</span>
@@ -162,19 +163,19 @@
         <div class="dialog">
           <div class="cont1">
             <div class="form">
-              <el-form :label-position="'left'" label-width="80px" :model="formLabelAlign">
-                <el-form-item label="用户名">
+              <el-form :label-position="'left'"  :rules="rules" label-width="80px" :model="formLabelAlign">
+                <el-form-item label="用户名" prop="name">
                   <el-input v-model="formLabelAlign.name"></el-input>
                 </el-form-item>
-                <el-form-item label="登录密码">
-                  <el-input v-model="formLabelAlign.type"></el-input>
+                <el-form-item label="登录密码" prop="pwd">
+                  <el-input v-model="formLabelAlign.pwd"></el-input>
                 </el-form-item>
               </el-form>
-              <div class="vertify" style="display: flex;justify-content: space-between">
-                <el-input v-model="formLabelAlign.type" placeholder="验证码"></el-input>
-                <el-button type="success">验证码</el-button>
+              <!--<div class="vertify" style="display: flex;justify-content: space-between">-->
+                <!--<el-input v-model="formLabelAlign.type" placeholder="验证码"></el-input>-->
+                <!--<el-button type="success">验证码</el-button>-->
 
-              </div>
+              <!--</div>-->
 
 
             </div>
@@ -272,9 +273,44 @@
     name: "index",
     components: {Footer},
     data() {
+      var isNull=(rule,val,callback)=>{
+        if(val==""||null||undefined)return callback(new Error("请输入用户名！") );
+      }
+      var checkTrim=(rule,val,callback)=>{
+        isNull(rule,val,callback)
+        if(val.indexOf(" ")>-1)return callback(new Error("不能包含空格！") );
+      }
+      var checkPhone=(rule,val,callback)=>{
+        let p=/^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+        let m= /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if(p.test(val)){
+        }else{
+          if(!m.test(val))return callback(new Error("请输入正确手机号或邮箱地址"))
+        }
+      }
+      var checkPwd = (rule, val, cb) => {
+        if(val==""||null||undefined)return cb(new Error("请输入密码！") );
+        checkTrim(rule,val,cb)
+      };
+      var rePwd=(rule,val,cb)=>{
+        if(val!=this.formLabelAlign.pwd)return cb(new Error("两次输入密码不一致！"))
+      }
       return {
+        code:"获取短信验证码",
+        flag:true,
         user:{
-          id:false
+          id:true
+        },
+
+        rules:{
+          name:[{validator:checkTrim,trigger:"blur",}],
+          region:[{validator:checkPhone,trigger:"blur",}],
+          pwd: [
+            { validator: checkPwd, trigger: 'blur' }
+          ],
+          repwd: [
+            { validator: rePwd, trigger: 'change' }
+          ]
         },
         count: 0,
         data: [],
@@ -286,14 +322,31 @@
         qr: 0,
         centerDialogVisible: false,
         tag:0,
+        login:{
+          name:"",
+          pwd:""
+        },
         formLabelAlign: {
           name: '',
-          region: '',
-          type: ''
+          region:'',
+          type: '',
+          pwd:"",
+          repwd:""
         }
       }
     },
     methods: {
+      getCode(){
+        if(this.flag){
+          this.flag=false;
+          this.code=60;
+          let s=setInterval( ()=> {
+            --this.code;
+            // console.log(this.code)
+            if(this.code==0){this.flag=true;clearInterval(s);this.code="获取验证码"};
+          },1000)
+        }
+      },
       loadMore: function() {
         this.busy = true
         setTimeout(() => {

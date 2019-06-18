@@ -5,7 +5,7 @@ import Live from "../pages/Live/Live"
 import Mine from "../pages/Mine/Mine"
 
 Vue.use(Router)
-
+//==============================================
 let router= new Router({
   routes: [
     {
@@ -27,6 +27,7 @@ let router= new Router({
       name:"Mine",
       component:Mine
     }
+
   ]
 })
 
