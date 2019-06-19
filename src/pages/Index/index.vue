@@ -2,7 +2,7 @@
   <div :class="['index']" :id="user.id?'logindex':''" :style="{backgroundImage:'url('+bgc+')'}">
     <div class="header">
       <div class="left">
-        <a href="" @click.prevent="goPage('Live')">直播</a>
+        <a href="" @click.prevent="goPage('live')">直播</a>
         <a href="" @click.prevent="">视频</a>
         <a href="" @click.prevent="">图文</a>
         <a href="" @click.prevent="">语音</a>

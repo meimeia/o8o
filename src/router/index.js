@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from "../pages/Index/index"
-import Live from "../pages/Live/Live"
+import Live from "../pages/Live"
 import Mine from "../pages/Mine/Mine"
 
 Vue.use(Router)
@@ -18,9 +18,38 @@ let router= new Router({
       component: Index
     },
     {
-    path:"/live",
-      name:"Live",
-      component:Live
+      path: '/live',
+      name: 'live',
+      redirect: {
+        name: 'live-login'
+      },
+      component: Live,
+      children: (pre => [
+        {
+          path: 'login',
+          name: `${pre}-login`,
+          component: () =>
+            import('@/pages/Live/components/live-login'),
+        },
+        {
+          path: 'self',
+          name: `${pre}-self`,
+          meta: {
+            title: '个人直播'
+          },
+          component: () =>
+            import('@/pages/Live/components/self'),
+        },
+        {
+          path: 'enterprise',
+          name: `${pre}-enterprise`,
+          meta: {
+            title: '企业直播'
+          },
+          component: () =>
+            import('@/pages/Live/components/enterprise'),
+        }
+      ])('live')
     },
     {
     path:"/mine",
