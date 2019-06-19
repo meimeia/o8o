@@ -11,6 +11,15 @@ textarea{
 }
 fieldset,img{border:0;}
 a { color:white;text-decoration: none; background: none }
+.model{
+  margin-top:.6rem;
+}
+.model .top{
+  margin-left:.2rem;
+}
+.model a{
+  color:black;
+}
 a:hover{
   color:#c53518;
 }

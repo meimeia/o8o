@@ -219,6 +219,7 @@
         </div>
       </div>
     </el-dialog>
+    <!--扫码下载APP======================================-->
     <div class="cont">
       <div class="cont1" :style="{marginTop:user.id?'.7rem':'2rem',paddingLeft:'1.9rem'}">
         <div style="width:4rem;height:1.7rem;">
@@ -253,8 +254,75 @@
       <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="我关注的" name="first">我关注的</el-tab-pane>
         <el-tab-pane label="导航" name="second">
-          <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-            <div v-for="item in data" :key="item.index">{{item.name}}</div>
+          <div style="margin:.3rem;" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+            <div class="model model1">
+                <div class="top" style="display:flex;font-size: .3rem;font-weight: 900;">
+                  <div style="flex:1;display: flex;">
+                    <div style="width:25%;display: flex;justify-content: space-between"><span>热门品牌</span><span>HOTBRAND</span></div>
+                    <div style="display: flex;justify-content: space-around;flex:1;margin-right:.3rem;"><a href="">国际大牌</a><a href="">时尚潮牌</a><a href="">国内名牌</a></div>
+                  </div>
+                  <div style="display:flex;width:2.5rem;justify-content: space-around"><a href="">换一换</a><div><a href="">品牌库</a></div></div>
+                </div>
+              <div class="btm" style="height: 7rem;display: flex;flex-wrap: wrap;">
+                  <div v-for="i in 6" style="width:4.7rem;height:3rem;margin:.2rem;">
+                    <a href="">
+                      <img style="width:100%;height: 100%;" src="../../../static/imgs/brand.jpg" alt="">
+                    </a>
+                  </div>
+              </div>
+            </div>
+            <div class="model model2">
+              <div class="top" style="display:flex;font-size: .3rem;font-weight: 900;height: .6rem;">
+                <div style="flex:1;display: flex;">
+                  <div style="width:25%;display: flex;justify-content: center;background-color:#ff3333;color:white;"><span>我要代理</span></div>
+                  <div style="display: flex;justify-content: space-around;flex:1;margin-right:.3rem;"><a href="">行业好货</a><a href="">高佣精选</a></div>
+                </div>
+                <div style="display:flex;width:2.5rem;justify-content: space-around"><a href="">换一换</a><div><a href="">品牌库</a></div></div>
+              </div>
+              <span style="display: block;width:100%;height: 1px;background:#FF3333;margin-left:.2rem; ">
+
+              </span>
+              <div class="btm" style="margin-top:.5rem;">
+                <div class="btm" style="display: flex;flex-wrap: wrap;">
+                  <div v-for="i in 6" style="position:relative;width:4.6rem;height:6rem;margin:.2rem;margin-left:.4rem;">
+                    <a class="brand" href="">
+                      <img style="width:100%;height: 90%;" src="../../../static/imgs/ertong.png" alt="">
+                      <div class="brand_hover" style="display:none;width:100%;height: 1rem;background: rgba(0,0,0,0.3);position: absolute;bottom:.6rem;">
+                        <div>单件月销1.8万</div>
+                        <span></span>
+                        <div>更多好货》</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="model model2">
+              <div class="top" style="display:flex;font-size: .3rem;font-weight: 900;height: .6rem;">
+                <div style="flex:1;display: flex;">
+                  <div style="width:25%;display: flex;justify-content: center;background-color:#ff3333;color:white;"><span>我要代言</span></div>
+                  <div style="display: flex;justify-content: space-around;flex:1;margin-right:.3rem;"><a href="">单品代言</a><a href="">店铺代言</a></div>
+                </div>
+                <div style="display:flex;width:2.5rem;justify-content: space-around"><a href="">换一换</a><div><a href="">品牌库</a></div></div>
+              </div>
+              <span style="display: block;width:100%;height: 1px;background:#FF3333;margin-left:.2rem; ">
+
+              </span>
+              <div class="btm" style="margin-top:.5rem;">
+                <div class="btm" style="display: flex;flex-wrap: wrap;">
+                  <div v-for="i in 6" style="position:relative;width:4.6rem;height:6rem;margin:.2rem;margin-left:.4rem;">
+                    <a class="brand" href="">
+                      <img style="width:100%;height: 90%;" src="../../../static/imgs/ertong.png" alt="">
+                      <div class="brand_hover" style="display:none;width:100%;height: 1rem;background: rgba(0,0,0,0.3);position: absolute;bottom:.6rem;">
+                        <div>单件月销1.8万</div>
+                        <span></span>
+                        <div>更多好货》</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </el-tab-pane>
         <el-tab-pane label="推荐" name="third">推荐</el-tab-pane>
@@ -386,11 +454,35 @@
     mounted() {
       let data = {bgc: ""}
       this.bgc = data.bgc ? data.bgc : require("../../assets/imgs/indexbg.jpg");
-    }
+      window.onscroll = function () {
+        var scrollT = document.documentElement.scrollTop || document.body.scrollTop; //滚动条的垂直偏移
+        var scrollH = document.documentElement.scrollHeight || document.body.scrollHeight; //元素的整体高度
+        var clientH = document.documentElement.clientHeight || document.body.clientHeight; //元素的可见高度
+        if (clientH == scrollH -scrollT) {
+          alert("到底部了");
+        } else if(scrollT<10){
+          console.log(scrollT==0)
+          alert("到顶部了");
+        }
+      }}
   }
 </script>
 
 <style scoped lang="scss">
+  .brand:hover{
+    .brand_hover{
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color:white;
+      padding-top:.1rem;
+      div{
+        flex:1;
+      }
+      /*display: block*/
+    }
+  }
   .index {
     color: white;
     width: 100%;
