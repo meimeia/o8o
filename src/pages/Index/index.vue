@@ -20,7 +20,7 @@
         }">注册</a>
         </div>
         <!--v-if="user.id"-->
-       <div >
+       <div style="margin-left:.2rem;">
          <a href="" @click.prevent="()=>goPage('Mine')">杨亮礼遇</a>
        </div>
         <a href="" @click.prevent="" style="margin-left:.3rem;">更多</a>
@@ -40,12 +40,12 @@
       <div v-if="tag==0?1:0">
         <div class="dialog">
           <div class="cont1">
-            <div class="border">
+            <div class="border" style="margin-top:.2rem;">
               <img src="../../assets/imgs/qrcode.png"/>
             </div>
             <span>请使用o8oAPP扫码登录</span>
           </div>
-          <div class="dialogcont2">
+          <div class="dialogcont2" style="height: .6rem;padding-top:.4rem;">
             <span>
               <i class="fa fa-shield" aria-hidden="true"></i> 安全
             </span> <span>
@@ -93,7 +93,7 @@
         <div class="dialog">
           <div class="cont1">
             <div class="form">
-              <el-form :label-position="'left'"  :rules="rules" label-width="80px" :model="formLabelAlign">
+              <el-form ref="form0" :label-position="'left'"  :rules="rules" label-width="80px" :model="formLabelAlign">
                 <el-form-item label="用户名" prop="name" >
                   <el-input clearable v-model="formLabelAlign.name"></el-input>
                 </el-form-item>
@@ -119,7 +119,7 @@
           </div>
           <div class="dialogcont2">
             <div class="button">
-              <el-button type="primary">立即注册</el-button>
+              <el-button type="primary" @click="" >立即注册</el-button>
             </div>
 
           </div>
@@ -164,7 +164,7 @@
         <div class="dialog">
           <div class="cont1">
             <div class="form">
-              <el-form :label-position="'left'"  :rules="rules" label-width="80px" :model="formLabelAlign">
+              <el-form ref="form1" :label-position="'left'"  :rules="rules" label-width="80px" :model="formLabelAlign">
                 <el-form-item label="用户名" prop="name">
                   <el-input v-model="formLabelAlign.name"></el-input>
                 </el-form-item>
@@ -184,7 +184,7 @@
           </div>
           <div class="dialogcont2">
             <div class="button">
-              <el-button type="primary">立即登录</el-button>
+              <el-button type="primary" @click="submitForm('form1')" >立即登录</el-button>
             </div>
 
           </div>
@@ -223,7 +223,7 @@
     <div class="cont">
       <div class="cont1" :style="{marginTop:user.id?'.7rem':'2rem',paddingLeft:'1.9rem'}">
         <div style="width:4rem;height:1.7rem;">
-          <img src="../../assets/imgs/logo.png" style="width:100%;height: 100%; "/>
+          <img src="../../assets/imgs/logo.png" style="width:90%;height: 90%; "/>
         </div>
         <div class="div2">
 
@@ -342,33 +342,39 @@
     name: "index",
     components: {Footer},
     data() {
-      var isNull=(rule,val,callback)=>{
-        if(val==""||null||undefined)return callback(new Error("请输入用户名！") );
+      var isNull=(rule,val,cb)=>{
+        if(val==""||null||undefined)return cb(new Error("请输入用户名！") );
+        return cb()
       }
-      var checkTrim=(rule,val,callback)=>{
-        isNull(rule,val,callback)
-        if(val.indexOf(" ")>-1)return callback(new Error("不能包含空格！") );
+      var checkTrim=(rule,val,cb)=>{
+        if(val==""||null||undefined)return cb(new Error("请输入用户名！") );
+        console.log(val.indexOf(" ") > -1,900);
+        if(val.indexOf(" ")>-1)return cb(new Error("不能包含空格！"));
+        return cb()
       }
-      var checkPhone=(rule,val,callback)=>{
+      var checkPhone=(rule,val,cb)=>{
         let p=/^[1][3,4,5,6,7,8,9][0-9]{9}$/;
         let m= /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        if(p.test(val)){
+        if(p.test(val)){   return cb()
         }else{
-          if(!m.test(val))return callback(new Error("请输入正确手机号或邮箱地址"))
+          if(!m.test(val))return cb(new Error("请输入正确手机号或邮箱地址"))
         }
+
       }
       var checkPwd = (rule, val, cb) => {
         if(val==""||null||undefined)return cb(new Error("请输入密码！") );
-        checkTrim(rule,val,cb)
+        if(val.indexOf(" ")>-1)return cb(new Error("不能包含空格！") );
+        return  cb()
       };
       var rePwd=(rule,val,cb)=>{
         if(val!=this.formLabelAlign.pwd)return cb(new Error("两次输入密码不一致！"))
+        return cb()
       }
       return {
         code:"获取短信验证码",
         flag:true,
         user:{
-          id:true
+          id:false
         },
 
         rules:{
@@ -405,6 +411,25 @@
       }
     },
     methods: {
+      submitForm(formName) {
+        console.log(formName);
+        console.log(this.$refs[formName]);
+        this.$refs[formName].validate((valid) => {
+          console.log(123)
+          if (valid) {
+            alert('submit!');
+            this.user.id=true
+            this.centerDialogVisible=false
+            return true
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
       getCode(){
         if(this.flag){
           this.flag=false;
