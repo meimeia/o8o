@@ -459,10 +459,10 @@
         var scrollH = document.documentElement.scrollHeight || document.body.scrollHeight; //元素的整体高度
         var clientH = document.documentElement.clientHeight || document.body.clientHeight; //元素的可见高度
         if (clientH == scrollH -scrollT) {
-          alert("到底部了");
+          console.log("到底部了");
         } else if(scrollT<10){
           console.log(scrollT==0)
-          alert("到顶部了");
+          console.log("到顶部了");
         }
       }}
   }
