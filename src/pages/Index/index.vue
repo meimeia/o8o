@@ -8,7 +8,8 @@
         <a href="" @click.prevent="">语音</a>
       </div>
       <div class="right">
-        <div v-if="!user.id">
+        <!--v-if="!user.id"-->
+        <div >
           <a href="" @click.prevent="()=>{
         centerDialogVisible = true
         tag=0
