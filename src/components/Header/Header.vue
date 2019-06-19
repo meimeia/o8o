@@ -16,6 +16,7 @@
 
 <div class="user">
   <a href="" @click.prevent="goPage('Index')">首页</a>
+  <a href="" @click.prevent="goPage('picture')">图文</a>
   <a href="" @click.prevent="">日历</a>
   <a href="" @click.prevent="">消息</a>
   <a href="" @click.prevent="">设置</a>

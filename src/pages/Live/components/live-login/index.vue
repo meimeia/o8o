@@ -6,7 +6,7 @@
 
         </el-row>
         <el-row>
-          <el-row type="flex">
+          <el-row type="flex" align="middle">
             <el-row class="userFace">
               <img src="../../../../assets/imgs/u366.png" alt="" style="width:0.5rem;height:0.5rem;">
             </el-row>

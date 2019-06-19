@@ -18,6 +18,12 @@ let router= new Router({
       component: Index
     },
     {
+      path: '/picture',
+      name: 'picture',
+      component: () =>
+        import('@/pages/Picture')
+    },
+    {
       path: '/live',
       name: 'live',
       redirect: {
