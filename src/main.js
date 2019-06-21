@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import "./utils/rem"
 import "./assets/css/public.css"
+import "./assets/css/public-class.scss"
 import "font-awesome/css/font-awesome.min.css"
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';

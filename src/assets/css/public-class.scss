@@ -1,0 +1,16 @@
+// 边距相关
+$sizes: (0, 5, 10, 15, 20, 30, 40, 50, 60, 100);
+
+@for $index from 1 to 11 {
+  .m-#{nth($sizes, $index)} { margin: #{nth($sizes, $index)/100}rem !important; }
+  .mt-#{nth($sizes, $index)} { margin-top: #{nth($sizes, $index)/100}rem !important; }
+  .mr-#{nth($sizes, $index)} { margin-right: #{nth($sizes, $index)/100}rem !important; }
+  .mb-#{nth($sizes, $index)} { margin-bottom: #{nth($sizes, $index)/100}rem !important; }
+  .ml-#{nth($sizes, $index)} { margin-left: #{nth($sizes, $index)/100}rem !important; }
+
+  .p-#{nth($sizes, $index)} { padding: #{nth($sizes, $index)/100}rem !important; }
+  .pt-#{nth($sizes, $index)} { padding-top: #{nth($sizes, $index)/100}rem !important; }
+  .pr-#{nth($sizes, $index)} { padding-right: #{nth($sizes, $index)/100}rem !important; }
+  .pb-#{nth($sizes, $index)} { padding-bottom: #{nth($sizes, $index)/100}rem !important; }
+  .pl-#{nth($sizes, $index)} { padding-left: #{nth($sizes, $index)/100}rem !important; }
+}

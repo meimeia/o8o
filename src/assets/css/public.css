@@ -42,3 +42,24 @@ html,body{
 .flex{
   display: flex;justify-content: center;align-items: center;
 }
+.font-size-mini {
+  font-size: .12rem;
+}
+.font-size-small {
+  font-size: .14rem;
+}
+.font-size-medium {
+  font-size: .16rem;
+}
+.font-size-large {
+  font-size: .18rem;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
