@@ -21,7 +21,7 @@
               <el-row class="live-line"></el-row>
               <span>联盟:{{liveInfo.liveUnion}}</span>
             </el-row>
-            <el-row>
+            <el-row style="text-align: right;">
               <el-button class="live-flag" round>{{liveInfo.liveFlag}}</el-button>
             </el-row>
           </el-row>
@@ -76,7 +76,7 @@
           liveName: '我的直播间名称',
           liveGroup: 123213123,
           liveUnion: 121321213,
-          liveFlag: '直播达人'
+          liveFlag: '店铺名称'
         }
       }
     },
