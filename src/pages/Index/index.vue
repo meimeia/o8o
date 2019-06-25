@@ -4,7 +4,7 @@
       <div class="left">
         <a href="" @click.prevent="goPage('live')">直播</a>
         <a href="" @click.prevent="">视频</a>
-        <a href="" @click.prevent="">图文</a>
+        <a href="" @click.prevent="goPage('picture')">图文</a>
         <a href="" @click.prevent="">语音</a>
       </div>
       <div class="right">
